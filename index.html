@@ -358,7 +358,7 @@ header h1 {
 <body>
 
     <script>
-        const audio = document.getElementById('music');
+      const audio = document.getElementById('music');
 const canvas = document.getElementById('canvasCelebration');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -396,11 +396,10 @@ function navigateTo(n) {
     window.scrollTo(0, 0);
 
     // 3. JALANKAN SLIDER JIKA DI HALAMAN 3 ATAU 4
-if (n === 3 || n === 4) {
-            setTimeout(() => {
-                startRandomBlurSlider(n);
-            }, 300);
-        }
+    if (n === 3 || n === 4) {
+        setTimeout(() => {
+            startRandomBlurSlider(n);
+        }, 300);
     }
 }
 
@@ -408,36 +407,44 @@ function restart() {
     location.reload();
 }
 
-// --- FUNGSI SLIDER BARU UNTUK SAFARI ---
+// --- FUNGSI SLIDER BARU DENGAN EFEK BLUR & ACAK ---
 function startRandomBlurSlider(pageId) {
     const page = document.getElementById('p' + pageId);
-    if (!page) return;
     const slides = page.querySelectorAll('.auto-slide');
+    
     if (slides.length === 0) return;
 
     let currentIndex = 0;
 
+    // Fungsi internal untuk mengganti foto
     function showNextSlide() {
+        // Sembunyikan semua slide
         slides.forEach(slide => {
             slide.classList.remove('active-slide');
-            slide.style.opacity = "0"; 
+            slide.style.transitionDuration = '1.2s'; // Durasi default
         });
-        
-        const currentSlide = slides[currentIndex];
-        if (currentSlide) {
-            currentSlide.classList.add('active-slide');
-            setTimeout(() => {
-                currentSlide.style.opacity = "1";
-            }, 50);
-        }
 
+        // Pilih slide berikutnya
+        const currentSlide = slides[currentIndex];
+
+        // ACAK EFEK: Kadang lambat, kadang agak cepat
+        const randomDuration = (Math.random() * (1.8 - 0.8) + 0.8).toFixed(1);
+        currentSlide.style.transitionDuration = `${randomDuration}s`;
+
+        // Tampilkan slide
+        currentSlide.classList.add('active-slide');
+
+        // Update index untuk giliran berikutnya
         currentIndex = (currentIndex + 1) % slides.length;
     }
 
+    // Jalankan pertama kali
     showNextSlide();
-    if (typeof slideTimer !== 'undefined') clearInterval(slideTimer);
+
+    // Set interval untuk otomatis ganti tiap 4 detik
     slideTimer = setInterval(showNextSlide, 4000);
 }
+
 // --- LOGIKA PARTIKEL (TETAP SAMA) ---
 function initCelebration() {
     canvas.width = window.innerWidth;
