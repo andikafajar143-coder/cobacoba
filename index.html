@@ -224,33 +224,62 @@ header h1 {
 .nav-btn, .section-title { text-align: center; margin-bottom: 20px; }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-/* --- CSS SLIDER FADE & BLUR (OPTIMIZED) --- */
+/* --- PERBAIKAN SLIDER AGAR MUNCUL DI SEMUA POSISI --- */
 
 .slider-container {
-    width: 100%;
-    max-width: 500px; 
-    margin: 25px auto;
+    width: 90%;           /* Gunakan persentase agar fleksibel */
+    max-width: 500px;     /* Batas maksimal di laptop */
+    margin: 20px auto;
     overflow: hidden;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    background: var(--white);
+    border-radius: 12px;
+    background: #eee;     /* Warna dasar jika foto loading */
     position: relative;
-    aspect-ratio: 1 / 1; 
+    
+    /* Gunakan min-height agar kotak tidak 'gepeng' di potret */
+    min-height: 300px;    
+    aspect-ratio: 1 / 1;  /* Default kotak */
 }
 
-/* Khusus Halaman 4: Ukuran Landscape */
+/* Khusus Halaman 4 (Landscape di laptop) */
 .slider-landscape {
-    max-width: 700px; 
-    aspect-ratio: 16 / 9; 
+    max-width: 650px;
+    aspect-ratio: 16 / 9;
 }
 
-/* Responsif: Jika layar HP sangat kecil */
+.auto-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* PENTING: Gunakan 'cover' tapi pastikan container punya tinggi */
+    object-fit: cover; 
+    
+    opacity: 0;
+    filter: blur(10px);
+    transition: all 1s ease-in-out;
+    z-index: 1;
+}
+
+.active-slide {
+    opacity: 1 !important;
+    filter: blur(0px) !important;
+    z-index: 2 !important;
+}
+
+/* --- PERBAIKAN KHUSUS HP POTRET --- */
 @media (max-width: 480px) {
     .slider-container {
-        max-width: 90%; /* Agar tidak mepet pinggir layar */
+        width: 95%;        /* Lebih lebar di HP */
+        min-height: 250px; /* Pastikan ada tinggi minimal */
+        aspect-ratio: 1 / 1; 
+    }
+    
+    .slider-landscape {
+        aspect-ratio: 1 / 1; /* Ubah jadi kotak di HP agar tidak gepeng */
     }
 }
-
 .slider-wrapper {
     position: relative;
     width: 100%;
