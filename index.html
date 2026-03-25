@@ -146,7 +146,7 @@ Perpisahan itu datang dengan sederhana tanpa drama, hanya sebuah kesadaran bahwa
     </div>
 </section>
     <style>
-       :root {
+    :root {
     --bg-body: #f4f1ea;
     --accent: #bc8f8f;
     --text-main: #2c2c2c;
@@ -226,36 +226,32 @@ header h1 {
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 /* --- CSS SLIDER FADE & BLUR (OPTIMIZED) --- */
 
+/* Container utama slider */
 .slider-container {
-    width: 100%;
-    max-width: 500px; 
+    width: 90%;
+    max-width: 500px;
     margin: 25px auto;
+    position: relative;
     overflow: hidden;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    background: var(--white);
-    position: relative;
-    aspect-ratio: 1 / 1; 
+    background: #eee;
+    /* Trik agar kotak muncul di Safari HP */
+    height: 300px !important; 
+    display: block !important;
 }
 
-/* Khusus Halaman 4: Ukuran Landscape */
+/* Khusus Halaman 4 */
 .slider-landscape {
-    max-width: 700px; 
-    aspect-ratio: 16 / 9; 
-}
-
-/* Responsif: Jika layar HP sangat kecil */
-@media (max-width: 480px) {
-    .slider-container {
-        max-width: 90%; /* Agar tidak mepet pinggir layar */
-    }
+    max-width: 600px;
+    height: 250px !important;
 }
 
 .slider-wrapper {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background-color: #eee; /* Background cadangan saat foto loading */
 }
 
 .auto-slide {
@@ -264,43 +260,23 @@ header h1 {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    display: block;
+    /* Gunakan contain agar TIDAK ZOOM di HP */
+    object-fit: contain; 
     background-color: #f4f1ea;
+    display: block !important;
     
-    /* Efek Awal */
+    /* Efek transisi */
     opacity: 0;
-    filter: blur(20px);
-    transform: scale(1); /* Kita balik: mulai dari agak besar lalu mengecil ke normal */
-    transition: opacity 1.2s ease-in-out, filter 1.2s ease-in-out;
-    z-index: 1;
-}
-    /* Transisi */
-    transition-property: opacity, filter, transform;
-    transition-duration: 1.2s; /* Durasi default */
-    transition-timing-function: ease-in-out;
+    filter: blur(10px);
+    transition: opacity 1s ease-in-out, filter 1s ease-in-out;
     z-index: 1;
 }
 
-.auto-slide.active-slide {
-    opacity: 1;
-    filter: blur(0px);
-    transform: scale(1);
-    z-index: 2;
-}
-        @media (max-width: 480px) {
-    .slider-container {
-        width: 95%; /* Lebarkan sedikit di HP */
-        /* Gunakan aspect-ratio yang lebih kotak agar foto portrait HP tidak terlihat kecil */
-        aspect-ratio: 1 / 1; 
-        padding-bottom: 0 !important; /* Matikan padding-bottom jika kamu pakai teknik lama */
-        height: 350px !important; /* Beri tinggi pasti agar Safari stabil */
-    }
-
-    .slider-landscape {
-        aspect-ratio: 1 / 1 !important; /* Di HP, landscape lebih baik jadi kotak */
-        height: 300px !important;
-    }
+/* Class saat foto aktif */
+.active-slide {
+    opacity: 1 !important;
+    filter: blur(0px) !important;
+    z-index: 2 !important;
 }
     </style>
 </head>
@@ -359,41 +335,35 @@ function restart() {
 // --- FUNGSI SLIDER BARU DENGAN EFEK BLUR & ACAK ---
 function startRandomBlurSlider(pageId) {
     const page = document.getElementById('p' + pageId);
+    if (!page) return;
     const slides = page.querySelectorAll('.auto-slide');
-    
     if (slides.length === 0) return;
 
     let currentIndex = 0;
 
-    // Fungsi internal untuk mengganti foto
     function showNextSlide() {
-        // Sembunyikan semua slide
-        slides.forEach(slide => {
-            slide.classList.remove('active-slide');
-            slide.style.transitionDuration = '1.2s'; // Durasi default
+        slides.forEach(s => {
+            s.classList.remove('active-slide');
+            s.style.display = "none"; // Sembunyikan total
+            s.style.opacity = "0";
         });
+        
+        const active = slides[currentIndex];
+        active.style.display = "block"; // Munculkan kembali
+        
+        // Jeda 50ms agar Safari sempat memproses perubahan display
+        setTimeout(() => {
+            active.classList.add('active-slide');
+            active.style.opacity = "1";
+        }, 50);
 
-        // Pilih slide berikutnya
-        const currentSlide = slides[currentIndex];
-
-        // ACAK EFEK: Kadang lambat, kadang agak cepat
-        const randomDuration = (Math.random() * (1.8 - 0.8) + 0.8).toFixed(1);
-        currentSlide.style.transitionDuration = `${randomDuration}s`;
-
-        // Tampilkan slide
-        currentSlide.classList.add('active-slide');
-
-        // Update index untuk giliran berikutnya
         currentIndex = (currentIndex + 1) % slides.length;
     }
 
-    // Jalankan pertama kali
     showNextSlide();
-
-    // Set interval untuk otomatis ganti tiap 4 detik
+    if (slideTimer) clearInterval(slideTimer);
     slideTimer = setInterval(showNextSlide, 4000);
 }
-
 // --- LOGIKA PARTIKEL (TETAP SAMA) ---
 function initCelebration() {
     canvas.width = window.innerWidth;
