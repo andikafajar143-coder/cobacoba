@@ -416,31 +416,32 @@ function startRandomBlurSlider(pageId) {
     let currentIndex = 0;
 
     function showNextSlide() {
-        slides.forEach(s => {
-            s.classList.remove('active-slide');
-            s.style.opacity = "0";      // Reset untuk Safari
-            s.style.filter = "blur(15px)"; // Reset untuk Safari
+        // 1. Sembunyikan semua slide (Paksa untuk Safari)
+        slides.forEach(slide => {
+            slide.classList.remove('active-slide');
+            slide.style.opacity = "0"; 
         });
         
-        // Aktifkan slide saat ini
-        const active = slides[currentIndex];
-        active.classList.add('active-slide');
+        // 2. Pilih slide yang aktif
+        const currentSlide = slides[currentIndex];
         
-        // Pancingan khusus Safari agar mendeteksi perubahan visual
+        // 3. Tambahkan class active
+        currentSlide.classList.add('active-slide');
+        
+        // 4. Pancingan khusus Safari (Force Repaint)
         setTimeout(() => {
-            active.style.opacity = "1";
-            active.style.filter = "blur(0px)";
+            currentSlide.style.opacity = "1";
         }, 50);
 
+        // 5. Update index
         currentIndex = (currentIndex + 1) % slides.length;
     }
 
     // Jalankan pertama kali
     showNextSlide();
     
-    // Simpan interval ke slideTimer agar bisa di-clear saat pindah halaman
+    // Simpan ke interval global agar bisa di-clear
     slideTimer = setInterval(showNextSlide, 4000);
-}
 }
 
 // --- LOGIKA PARTIKEL (TETAP SAMA) ---
