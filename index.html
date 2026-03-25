@@ -378,15 +378,19 @@ function startExperience() {
     navigateTo(2);
 }
 
-// --- FUNGSI NAVIGASI YANG SUDAH DIMODIFIKASI ---
+// --- FUNGSI NAVIGASI ---
 function navigateTo(n) {
-    // 1. Matikan slider setiap kali pindah halaman agar tidak error
-    clearInterval(slideTimer);
+    // 1. Matikan slider setiap kali pindah halaman agar tidak tabrakan
+    if (slideTimer) clearInterval(slideTimer);
 
+    // 2. Pindah Halaman
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('p' + n).classList.add('active');
+    const targetPage = document.getElementById('p' + n);
+    if (targetPage) {
+        targetPage.classList.add('active');
+    }
     
-    // 2. Logika perayaan halaman 4
+    // 3. Logika perayaan halaman 4
     if (n === 4) {
         initCelebration();
     } else {
@@ -395,7 +399,7 @@ function navigateTo(n) {
     
     window.scrollTo(0, 0);
 
-    // 3. JALANKAN SLIDER JIKA DI HALAMAN 3 ATAU 4
+    // 4. JALANKAN SLIDER JIKA DI HALAMAN 3 ATAU 4
     if (n === 3 || n === 4) {
         setTimeout(() => {
             startRandomBlurSlider(n);
@@ -407,45 +411,48 @@ function restart() {
     location.reload();
 }
 
-// --- FUNGSI SLIDER BARU DENGAN EFEK BLUR & ACAK ---
+// --- FUNGSI SLIDER (OPTIMASI KHUSUS SAFARI) ---
 function startRandomBlurSlider(pageId) {
     const page = document.getElementById('p' + pageId);
+    if (!page) return;
     const slides = page.querySelectorAll('.auto-slide');
     
     if (slides.length === 0) return;
 
     let currentIndex = 0;
 
-    // Fungsi internal untuk mengganti foto
     function showNextSlide() {
-        // Sembunyikan semua slide
+        // Sembunyikan semua slide & reset opacity untuk Safari
         slides.forEach(slide => {
             slide.classList.remove('active-slide');
-            slide.style.transitionDuration = '1.2s'; // Durasi default
+            slide.style.opacity = "0"; 
         });
 
-        // Pilih slide berikutnya
         const currentSlide = slides[currentIndex];
 
-        // ACAK EFEK: Kadang lambat, kadang agak cepat
+        // Acak durasi transisi
         const randomDuration = (Math.random() * (1.8 - 0.8) + 0.8).toFixed(1);
         currentSlide.style.transitionDuration = `${randomDuration}s`;
 
-        // Tampilkan slide
+        // Tampilkan slide & paksa Safari untuk merender (Force Repaint)
         currentSlide.classList.add('active-slide');
+        
+        // Pancingan CSS agar muncul di Safari Potret
+        setTimeout(() => {
+            currentSlide.style.opacity = "1";
+        }, 50);
 
-        // Update index untuk giliran berikutnya
         currentIndex = (currentIndex + 1) % slides.length;
     }
 
     // Jalankan pertama kali
     showNextSlide();
 
-    // Set interval untuk otomatis ganti tiap 4 detik
+    // Set interval otomatis
     slideTimer = setInterval(showNextSlide, 4000);
 }
 
-// --- LOGIKA PARTIKEL (TETAP SAMA) ---
+// --- LOGIKA PARTIKEL ---
 function initCelebration() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
