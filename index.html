@@ -117,9 +117,10 @@ Perpisahan itu datang dengan sederhana tanpa drama, hanya sebuah kesadaran bahwa
     <h2 class="section-title">Doa-Doa Untukmu</h2>
   <div class="slider-container">
         <div class="slider-wrapper">
-            <img src="https://media.discordapp.net/attachments/840715961187172403/1485647626459152495/IMG_5661.jpg?ex=69c543ac&is=69c3f22c&hm=6e894e5fec531c75870091ad75dc9fac0ba62567d719372dd2350ff0d093d10a&=&format=webp&width=1240&height=826" class="auto-slide" alt="Momen 1">
-            <img src="https://media.discordapp.net/attachments/840715961187172403/1485654441612017834/IMG_5624.jpg?ex=69c54a05&is=69c3f885&hm=f21966fc8ef7c5e87dc85a640966be42a36f8ca3763c66fec8415222f39f9e20&=&format=webp&width=1240&height=816" class="auto-slide" alt="Momen 2">
-            <img src="https://media.discordapp.net/attachments/840715961187172403/1485658721454526666/IMG_7218.png?ex=69c54e01&is=69c3fc81&hm=60f547fd23dadd351dfa6b73ccd9fbd36865355e190ff861cfbfbe123de83c5e&=&format=webp&quality=lossless&width=1035&height=680" class="auto-slide" alt="Momen 3">
+            <div class="slider-wrapper">
+            <img src="https://media.discordapp.net/attachments/840715961187172403/1485647626459152495/IMG_5661.jpg?ex=69c543ac&is=69c3f22c&hm=6e894e5fec531c75870091ad75dc9fac0ba62567d719372dd2350ff0d093d10a&=&format=webp&width=1240&height=826" class="auto-slide"
+            <img src="https://media.discordapp.net/attachments/840715961187172403/1485654441612017834/IMG_5624.jpg?ex=69c54a05&is=69c3f885&hm=f21966fc8ef7c5e87dc85a640966be42a36f8ca3763c66fec8415222f39f9e20&=&format=webp&width=1240&height=816" class="auto-slide"
+            <img src="https://media.discordapp.net/attachments/840715961187172403/1485658721454526666/IMG_7218.png?ex=69c54e01&is=69c3fc81&hm=60f547fd23dadd351dfa6b73ccd9fbd36865355e190ff861cfbfbe123de83c5e&=&format=webp&quality=lossless&width=1035&height=680" class="auto-slide"
         </div>
     </div>
     <div class="wish-item">"Semoga kebahagiaan selalu menyertai setiap langkah beranimu ke depan."</div>
@@ -135,9 +136,10 @@ Perpisahan itu datang dengan sederhana tanpa drama, hanya sebuah kesadaran bahwa
     <div class="final-box">
       <div class="slider-container slider-landscape">
             <div class="slider-wrapper">
-                <img src="https://media.discordapp.net/attachments/840715961187172403/1485647626459152495/IMG_5661.jpg?ex=69c543ac&is=69c3f22c&hm=6e894e5fec531c75870091ad75dc9fac0ba62567d719372dd2350ff0d093d10a&=&format=webp&width=1240&height=826" class="auto-slide" alt="Momen 1">
-                <img src="https://media.discordapp.net/attachments/840715961187172403/1485647626459152495/IMG_5661.jpg?ex=69c543ac&is=69c3f22c&hm=6e894e5fec531c75870091ad75dc9fac0ba62567d719372dd2350ff0d093d10a&=&format=webp&width=1240&height=826" class="auto-slide" alt="Momen 2">
-                <img src="https://media.discordapp.net/attachments/840715961187172403/1485658721454526666/IMG_7218.png?ex=69c54e01&is=69c3fc81&hm=60f547fd23dadd351dfa6b73ccd9fbd36865355e190ff861cfbfbe123de83c5e&=&format=webp&quality=lossless&width=1035&height=680" class="auto-slide" alt="Momen 3">
+                <div class="slider-wrapper">
+                <img src="https://media.discordapp.net/attachments/840715961187172403/1485647626459152495/IMG_5661.jpg?ex=69c543ac&is=69c3f22c&hm=6e894e5fec531c75870091ad75dc9fac0ba62567d719372dd2350ff0d093d10a&=&format=webp&width=1240&height=826" class="auto-slide"
+                <img src="https://media.discordapp.net/attachments/840715961187172403/1485647626459152495/IMG_5661.jpg?ex=69c543ac&is=69c3f22c&hm=6e894e5fec531c75870091ad75dc9fac0ba62567d719372dd2350ff0d093d10a&=&format=webp&width=1240&height=826" class="auto-slide"
+                <img src="https://media.discordapp.net/attachments/840715961187172403/1485658721454526666/IMG_7218.png?ex=69c54e01&is=69c3fc81&hm=60f547fd23dadd351dfa6b73ccd9fbd36865355e190ff861cfbfbe123de83c5e&=&format=webp&quality=lossless&width=1035&height=680" class="auto-slide"
             </div>
         </div>
         <h2>Happy Birthday! 🎂🎉</h2>
@@ -242,20 +244,33 @@ header h1 {
 
 /* Tambahkan ini di bagian @media (max-width: 480px) */
 @media (max-width: 480px) {
-    .slider-container {
-        height: 300px; /* Tentukan tinggi pasti untuk Safari di mode potret */
-        width: 300px;  /* Tentukan lebar pasti agar tetap kotak */
-    }
-}
-    /* Gunakan min-height agar kotak tidak 'gepeng' di potret */
-    min-height: 300px;    
-    aspect-ratio: 1 / 1;  /* Default kotak */
+  .slider-container {
+    width: 90%;
+    max-width: 500px;
+    margin: 25px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    background: #eee;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    
+    /* Trik khusus Safari: Menentukan tinggi kotak 1:1 tanpa aspect-ratio */
+    height: 0;
+    padding-bottom: 90%; /* Ini akan membuat kotak persegi yang stabil */
 }
 
-/* Khusus Halaman 4 (Landscape di laptop) */
+/* Khusus Halaman 4 (Landscape) */
 .slider-landscape {
-    max-width: 650px;
-    aspect-ratio: 16 / 9;
+    max-width: 600px;
+    padding-bottom: 56.25%; /* Ini adalah perbandingan 16:9 */
+}
+
+.slider-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .auto-slide {
@@ -264,13 +279,12 @@ header h1 {
     left: 0;
     width: 100%;
     height: 100%;
-    
-    /* PENTING: Gunakan 'cover' tapi pastikan container punya tinggi */
-    object-fit: cover; 
+    object-fit: cover;
+    display: block !important; /* Memaksa Safari menampilkan gambar */
     
     opacity: 0;
-    filter: blur(10px);
-    transition: all 1s ease-in-out;
+    filter: blur(15px);
+    transition: opacity 1s ease-in-out, filter 1s ease-in-out;
     z-index: 1;
 }
 
@@ -279,7 +293,6 @@ header h1 {
     filter: blur(0px) !important;
     z-index: 2 !important;
 }
-
 /* --- PERBAIKAN KHUSUS HP POTRET --- */
 @media (max-width: 480px) {
     .slider-container {
@@ -398,38 +411,36 @@ function restart() {
 function startRandomBlurSlider(pageId) {
     const page = document.getElementById('p' + pageId);
     const slides = page.querySelectorAll('.auto-slide');
-    
     if (slides.length === 0) return;
 
     let currentIndex = 0;
 
-    // Fungsi internal untuk mengganti foto
     function showNextSlide() {
-        // Sembunyikan semua slide
-        slides.forEach(slide => {
-            slide.classList.remove('active-slide');
-            slide.style.transitionDuration = '1.2s'; // Durasi default
+        slides.forEach(s => {
+            s.classList.remove('active-slide');
+            s.style.opacity = "0";      // Reset untuk Safari
+            s.style.filter = "blur(15px)"; // Reset untuk Safari
         });
+        
+        // Aktifkan slide saat ini
+        const active = slides[currentIndex];
+        active.classList.add('active-slide');
+        
+        // Pancingan khusus Safari agar mendeteksi perubahan visual
+        setTimeout(() => {
+            active.style.opacity = "1";
+            active.style.filter = "blur(0px)";
+        }, 50);
 
-        // Pilih slide berikutnya
-        const currentSlide = slides[currentIndex];
-
-        // ACAK EFEK: Kadang lambat, kadang agak cepat
-        const randomDuration = (Math.random() * (1.8 - 0.8) + 0.8).toFixed(1);
-        currentSlide.style.transitionDuration = `${randomDuration}s`;
-
-        // Tampilkan slide
-        currentSlide.classList.add('active-slide');
-
-        // Update index untuk giliran berikutnya
         currentIndex = (currentIndex + 1) % slides.length;
     }
 
     // Jalankan pertama kali
     showNextSlide();
-
-    // Set interval untuk otomatis ganti tiap 4 detik
+    
+    // Simpan interval ke slideTimer agar bisa di-clear saat pindah halaman
     slideTimer = setInterval(showNextSlide, 4000);
+}
 }
 
 // --- LOGIKA PARTIKEL (TETAP SAMA) ---
