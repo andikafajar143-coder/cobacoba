@@ -396,10 +396,11 @@ function navigateTo(n) {
     window.scrollTo(0, 0);
 
     // 3. JALANKAN SLIDER JIKA DI HALAMAN 3 ATAU 4
-    if (n === 3 || n === 4) {
-        setTimeout(() => {
-            startRandomBlurSlider(n);
-        }, 300);
+if (n === 3 || n === 4) {
+            setTimeout(() => {
+                startRandomBlurSlider(n);
+            }, 300);
+        }
     }
 }
 
@@ -407,43 +408,36 @@ function restart() {
     location.reload();
 }
 
-// --- FUNGSI SLIDER BARU DENGAN EFEK BLUR & ACAK ---
+// --- FUNGSI SLIDER BARU UNTUK SAFARI ---
 function startRandomBlurSlider(pageId) {
     const page = document.getElementById('p' + pageId);
+    if (!page) return;
     const slides = page.querySelectorAll('.auto-slide');
     if (slides.length === 0) return;
 
     let currentIndex = 0;
 
     function showNextSlide() {
-        // 1. Sembunyikan semua slide (Paksa untuk Safari)
         slides.forEach(slide => {
             slide.classList.remove('active-slide');
             slide.style.opacity = "0"; 
         });
         
-        // 2. Pilih slide yang aktif
         const currentSlide = slides[currentIndex];
-        
-        // 3. Tambahkan class active
-        currentSlide.classList.add('active-slide');
-        
-        // 4. Pancingan khusus Safari (Force Repaint)
-        setTimeout(() => {
-            currentSlide.style.opacity = "1";
-        }, 50);
+        if (currentSlide) {
+            currentSlide.classList.add('active-slide');
+            setTimeout(() => {
+                currentSlide.style.opacity = "1";
+            }, 50);
+        }
 
-        // 5. Update index
         currentIndex = (currentIndex + 1) % slides.length;
     }
 
-    // Jalankan pertama kali
     showNextSlide();
-    
-    // Simpan ke interval global agar bisa di-clear
+    if (typeof slideTimer !== 'undefined') clearInterval(slideTimer);
     slideTimer = setInterval(showNextSlide, 4000);
 }
-
 // --- LOGIKA PARTIKEL (TETAP SAMA) ---
 function initCelebration() {
     canvas.width = window.innerWidth;
