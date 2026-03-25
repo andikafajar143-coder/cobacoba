@@ -227,14 +227,26 @@ header h1 {
 /* --- PERBAIKAN SLIDER AGAR MUNCUL DI SEMUA POSISI --- */
 
 .slider-container {
-    width: 90%;           /* Gunakan persentase agar fleksibel */
-    max-width: 500px;     /* Batas maksimal di laptop */
+    width: 100%;
+    max-width: 500px;
     margin: 20px auto;
     overflow: hidden;
-    border-radius: 12px;
-    background: #eee;     /* Warna dasar jika foto loading */
+    border-radius: 15px;
+    background: #eee;
     position: relative;
-    
+
+    display: block; 
+    height: auto;
+    aspect-ratio: 1 / 1;
+    }
+
+/* Tambahkan ini di bagian @media (max-width: 480px) */
+@media (max-width: 480px) {
+    .slider-container {
+        height: 300px; /* Tentukan tinggi pasti untuk Safari di mode potret */
+        width: 300px;  /* Tentukan lebar pasti agar tetap kotak */
+    }
+}
     /* Gunakan min-height agar kotak tidak 'gepeng' di potret */
     min-height: 300px;    
     aspect-ratio: 1 / 1;  /* Default kotak */
