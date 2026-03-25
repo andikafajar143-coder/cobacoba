@@ -284,6 +284,22 @@ header h1 {
     z-index: 2;
 }
     </style>
+                /* Penyesuaian khusus untuk HP */
+@media (max-width: 480px) {
+    .slider-container {
+        max-width: 95%; 
+        aspect-ratio: 4 / 5; /* Membuat kotak sedikit lebih tinggi, cocok untuk foto portrait HP */
+        margin: 15px auto;
+    }
+
+    .slider-landscape {
+        aspect-ratio: 1 / 1; /* Di HP, landscape diubah jadi kotak agar foto tidak terlalu kecil/gepeng */
+    }
+    
+    .final-box h2 {
+        font-size: 2.5rem; /* Ukuran tulisan Happy Birthday dikecilkan sedikit agar muat */
+    }
+}
 </head>
 <body>
 
